@@ -12,7 +12,7 @@ import com.npp.iService.Optional;
 import com.npp.repository.IAdministratorRepository;
 
 @Service
-public class AdministratorService implements IGenericService<Administrator> {
+public class AdministratorService implements IGenericService<Administrator, Long> {
 	@Autowired
 	private IAdministratorRepository administratorRepository;
 	

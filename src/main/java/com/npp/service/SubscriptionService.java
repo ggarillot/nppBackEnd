@@ -11,7 +11,7 @@ import com.npp.iService.Subscription;
 import com.npp.repository.ISubscriptionRepository;
 
 @Service
-public class SubscriptionService implements IGenericService<Subscription> {
+public class SubscriptionService implements IGenericService<Subscription, Long> {
 	@Autowired
 	private ISubscriptionRepository subscriptionRepository;
 

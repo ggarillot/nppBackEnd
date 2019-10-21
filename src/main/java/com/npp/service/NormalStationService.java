@@ -10,7 +10,7 @@ import com.npp.iService.IGenericService;
 import com.npp.repository.INormalStationRepository;
 
 @Service
-public class NormalStationService implements IGenericService<NormalStation> {
+public class NormalStationService implements IGenericService<NormalStation, Long> {
 	@Autowired
 	private INormalStationRepository normalStationRepository;
 

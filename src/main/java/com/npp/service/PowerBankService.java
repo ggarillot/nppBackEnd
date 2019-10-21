@@ -10,7 +10,7 @@ import com.npp.iService.IGenericService;
 import com.npp.repository.IPowerBankRepository;
 
 @Service
-public class PowerBankService implements IGenericService<PowerBank> {
+public class PowerBankService implements IGenericService<PowerBank, Long> {
 	@Autowired
 	private IPowerBankRepository powerBankRepository;
 

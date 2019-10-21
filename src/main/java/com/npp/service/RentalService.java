@@ -10,7 +10,7 @@ import com.npp.iService.IGenericService;
 import com.npp.repository.IRentalRepository;
 
 @Service
-public class RentalService implements IGenericService<Rental> {
+public class RentalService implements IGenericService<Rental, Long> {
 	@Autowired
 	private IRentalRepository rentalRepository;
 

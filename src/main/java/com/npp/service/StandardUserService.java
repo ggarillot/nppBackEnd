@@ -12,7 +12,7 @@ import com.npp.iService.StandardUser;
 import com.npp.repository.IStandardUserRepository;
 
 @Service
-public class StandardUserService implements IGenericService<StandardUser> {
+public class StandardUserService implements IGenericService<StandardUser, Long> {
 	@Autowired
 	private IStandardUserRepository standardUserRepository;
 	
