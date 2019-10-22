@@ -19,16 +19,29 @@ public abstract class AbstractService<G extends IHasID<I>, I> implements IAbstra
 	/**
 	 * Add the object in the database
 	 * 
-	 * @param g : object to persist return the saved objet
+	 * @param g : object to persist
+	 * @return the saved objet
 	 */
 	@Override
 	public G add(G g) {
-		g.getId();
 		return repository.save(g);
 	}
 
 	/**
-	 * Verify that the object already exists in the database before the update
+	 * Update the object without verifying that it exists or not. If it does not
+	 * exist it will create it
+	 * 
+	 * @param g : Object to persist
+	 * @return the altered Object
+	 */
+	@Override
+	public G update(G g) {
+
+		return repository.save(g);
+	}
+
+	/**
+	 * Update an object in the database, but before, it checks if the objects exists
 	 * 
 	 * @param g  : object to persist
 	 * @param id : the identifier of the object
@@ -42,19 +55,6 @@ public abstract class AbstractService<G extends IHasID<I>, I> implements IAbstra
 			throw new EntityDoesNotExistForUpdateException(serviceName + ".update(" + id + ") : not exist in database");
 		}
 		return this.update(g);
-	}
-
-	/**
-	 * Update the object without verifying that it exists or Not. If it does not
-	 * exist it will create it
-	 * 
-	 * @param g : Object to persist
-	 * @return the altered Object
-	 */
-	@Override
-	public G update(G g) {
-
-		return repository.save(g);
 	}
 
 	/**

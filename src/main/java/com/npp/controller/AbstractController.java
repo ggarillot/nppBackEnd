@@ -19,26 +19,30 @@ public abstract class AbstractController<G extends IHasID<I>, I> {
 
 	@Autowired
 	protected IAbstractService<G, I> service;
-	
+
 	/**
-	 * Add the object 
+	 * Add the object
+	 * 
 	 * @param g
 	 * @return the object and the status 200 when it is ok
 	 */
 	@PostMapping("/add")
 	public ResponseEntity<G> add(@RequestBody G g) {
+
 		g = service.add(g);
 		return new ResponseEntity<G>(g, HttpStatus.OK);
 	}
 
 	/**
 	 * update the object with the verified update service
+	 * 
 	 * @param g
 	 * @return the status 404 when the object is not found
 	 * @return the object and the status 200 when it is ok
 	 */
 	@PutMapping("/update")
 	public ResponseEntity<G> update(@RequestBody G g) {
+
 		try {
 			g = service.update(g, g.getId());
 		} catch (Exception e) {
@@ -50,18 +54,21 @@ public abstract class AbstractController<G extends IHasID<I>, I> {
 	}
 
 	/**
-	 * Delete the object 
+	 * Delete the object
+	 * 
 	 * @param id
 	 * @return the status 200 when it is ok
 	 */
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<G> delete(@PathVariable("id") I id) {
+
 		service.delete(id);
-		return new ResponseEntity<G> (HttpStatus.OK);
-		
+		return new ResponseEntity<G>(HttpStatus.OK);
+
 	}
 
-	/** Recuperation of the object which corresponds to the id
+	/**
+	 * Recuperation of the object which corresponds to the id
 	 * 
 	 * @param id
 	 * @return the status 404 when the object is not found
@@ -69,22 +76,17 @@ public abstract class AbstractController<G extends IHasID<I>, I> {
 	 */
 	@GetMapping("/get/{id}")
 	public ResponseEntity<G> getById(@PathVariable("id") I id) {
-		G g = null;
-		try {
-			g = service.getById(id);
+		G g = service.getById(id);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if (g == null) {
-			return new ResponseEntity<G>(HttpStatus.NOT_FOUND);
-		} else {
+		if (g != null)
 			return new ResponseEntity<G>(g, HttpStatus.OK);
-		}
+
+		return new ResponseEntity<G>(HttpStatus.NOT_FOUND);
 	}
 
 	/**
 	 * Recuperation of the list of object
+	 * 
 	 * @return the list of object and the status 200 when it is ok
 	 */
 	@GetMapping("/get")
