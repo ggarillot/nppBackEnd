@@ -1,6 +1,5 @@
 package com.npp.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.npp.enumerator.PowerBankStatus;
+import com.npp.ientity.IHasID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,13 +23,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PowerBank implements Serializable {
+public class PowerBank implements IHasID<Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	private PowerBankStatus status;
 
@@ -37,8 +37,8 @@ public class PowerBank implements Serializable {
 
 	@OneToMany(mappedBy = "powerBank")
 	private List<Rental> rental;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "id_genericStation", referencedColumnName = "id")
 	private GenericStation genericStation;
 }

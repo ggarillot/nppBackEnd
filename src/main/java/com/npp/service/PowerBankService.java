@@ -1,43 +1,12 @@
 package com.npp.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.npp.iService.IGenericService;
-import com.npp.repository.IPowerBankRepository;
+import com.npp.entity.PowerBank;
+import com.npp.iservice.IPowerBankService;
 
 @Service
-public class PowerBankService implements IGenericService<PowerBank, Long> {
-	@Autowired
-	private IPowerBankRepository powerBankRepository;
+public class PowerBankService extends AbstractService<PowerBank, Long> implements IPowerBankService {
 
-	@Override
-	public PowerBank add(PowerBank g) {
-		return powerBankRepository.save(g);
-	}
 
-	@Override
-	public PowerBank update(PowerBank g) {
-		return powerBankRepository.save(g);
-	}
-
-	@Override
-	public void delete(Long id) {
-		powerBankRepository.deleteById(id);
-	}
-
-	@Override
-	public Optional<PowerBank> getById(Long id) {
-		return powerBankRepository.findById(id);
-	}
-
-	@Override
-	public List<PowerBank> findAll() {
-		return powerBankRepository.findAll();
-	}
-	
-	
 }
