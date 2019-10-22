@@ -2,18 +2,20 @@ package com.npp.embedded;
 
 import javax.persistence.Embeddable;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class Localisation {
 
-	@Getter
-	@Setter
+
 	private double latitude;
 	
-	@Getter
-	@Setter
 	private double longitude;
 
 }
