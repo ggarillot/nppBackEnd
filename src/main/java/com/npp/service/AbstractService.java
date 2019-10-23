@@ -2,7 +2,6 @@ package com.npp.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,7 +12,6 @@ import com.npp.iservice.IAbstractService;
 
 public abstract class AbstractService<G extends IHasID<I>, I> implements IAbstractService<G, I> {
 
-	@Autowired
 	protected JpaRepository<G, I> repository;
 
 	/**
