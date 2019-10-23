@@ -3,6 +3,7 @@ package com.npp.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
+import com.npp.enumerator.GenericUserProfile;
 import com.npp.ientity.IHasID;
 
 import lombok.Data;
@@ -32,6 +34,7 @@ public abstract class GenericUser implements IHasID<Long> {
 	private String surname;
 
 	@Email
+	@Column(unique = true)
 	private String email;
 
 	private String password;
@@ -39,10 +42,13 @@ public abstract class GenericUser implements IHasID<Long> {
 	private LocalDate inscriptionDate;
 
 	private String visaCard;
+	
+	private GenericUserProfile profile;
 
 	@OneToMany(mappedBy = "genericUser")
 	private List<Subscription> subscription;
 
 	@OneToMany(mappedBy = "genericUser")
 	private List<Rental> rental;
+
 }
