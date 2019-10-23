@@ -38,5 +38,5 @@ public abstract class GenericStation implements IHasID<Long> {
 	private GenericStationStatus status;
 
 	@OneToMany(mappedBy = "genericStation")
-	private List<PowerBank> powerBank;
+	private List<PowerBank> powerBankList;
 }

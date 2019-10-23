@@ -41,8 +41,8 @@ public abstract class GenericUser implements IHasID<Long> {
 	private String visaCard;
 
 	@OneToMany(mappedBy = "genericUser")
-	private List<Subscription> subscription;
+	private List<Subscription> subscriptionList;
 
 	@OneToMany(mappedBy = "genericUser")
-	private List<Rental> rental;
+	private List<Rental> rentalList;
 }

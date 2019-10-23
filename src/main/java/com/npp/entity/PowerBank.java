@@ -36,7 +36,7 @@ public class PowerBank implements IHasID<Long> {
 	private double level;
 
 	@OneToMany(mappedBy = "powerBank")
-	private List<Rental> rental;
+	private List<Rental> rentalList;
 
 	@ManyToOne
 	@JoinColumn(name = "id_genericStation", referencedColumnName = "id")
