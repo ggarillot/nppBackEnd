@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.npp.entity.GenericUser;
 
-@Service("customUserDetailsService")
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Autowired

@@ -43,12 +43,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	// To be checked, may present so issues
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/np/**", "/user").permitAll();
-//		.antMatchers("/user/*").access("hasRole('ADMIN')")
-//		.antMatchers("/admin/*").access("hasRole('USER') and hasRole('ADMIN')")
-//		.and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password")
-//		.and().exceptionHandling().accessDeniedPage("/Acess_Denied");
+		http.httpBasic()
+		.and().authorizeRequests()
+		.antMatchers("/home").permitAll()
+		.antMatchers("/user/*").access("hasRole('ADMIN')")
+		.antMatchers("/admin/*").access("hasRole('USER') and hasRole('ADMIN')")
+		.and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password")
+		.and().exceptionHandling().accessDeniedPage("/Acess_Denied");
 		
 	}
 }
