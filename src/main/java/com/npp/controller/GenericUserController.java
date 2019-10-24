@@ -10,7 +10,7 @@ import com.npp.iservice.IGenericUserService;
 
 @RestController
 @RequestMapping("/guser")
-@CrossOrigin(origins = "http://localhost:8034")
+@CrossOrigin(origins = "*")
 public class GenericUserController extends AbstractController<GenericUser, Long> {
 	
 	@Autowired

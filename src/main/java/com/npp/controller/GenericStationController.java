@@ -10,7 +10,7 @@ import com.npp.iservice.IGenericStationService;
 
 @RestController
 @RequestMapping("/gstation")
-@CrossOrigin(origins = "http://localhost:8034")
+@CrossOrigin(origins = "*")
 public class GenericStationController extends AbstractController<GenericStation, Long> {
 	
 	@Autowired

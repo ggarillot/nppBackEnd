@@ -10,7 +10,7 @@ import com.npp.iservice.IStandardUserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:8034")
+@CrossOrigin(origins = "*")
 public class StandardUserController extends AbstractController<StandardUser, Long> {
 	
 	@Autowired
