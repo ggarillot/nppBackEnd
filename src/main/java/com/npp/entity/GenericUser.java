@@ -12,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.npp.ientity.IHasID;
 
 import lombok.Data;
@@ -40,9 +41,11 @@ public abstract class GenericUser implements IHasID<Long> {
 
 	private String visaCard;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "genericUser")
 	private List<Subscription> subscriptionList;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "genericUser")
 	private List<Rental> rentalList;
 }

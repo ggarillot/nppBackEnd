@@ -12,6 +12,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.npp.embedded.Localisation;
 import com.npp.enumerator.GenericStationStatus;
 import com.npp.ientity.IHasID;
@@ -37,6 +38,7 @@ public abstract class GenericStation implements IHasID<Long> {
 	@Enumerated
 	private GenericStationStatus status;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "genericStation")
 	private List<PowerBank> powerBankList;
 }
