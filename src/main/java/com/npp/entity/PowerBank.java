@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.npp.enumerator.PowerBankStatus;
 import com.npp.ientity.IHasID;
 
@@ -35,6 +36,7 @@ public class PowerBank implements IHasID<Long> {
 
 	private double level;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "powerBank")
 	private List<Rental> rentalList;
 
