@@ -46,6 +46,11 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 	}
 
 	@Override
+	public List<Rental> findByPowerBank(PowerBank powerBank) {
+		return ((IRentalRepository) repository).findByPowerBank(powerBank);
+	}
+
+	@Override
 	@Transactional(noRollbackFor = Exception.class)
 	public Rental handleNewRent(GenericUser user, PowerBank powerBank) throws RentalNotAllowedException {
 

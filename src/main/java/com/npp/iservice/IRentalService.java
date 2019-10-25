@@ -10,6 +10,7 @@ import com.npp.exception.RentalNotAllowedException;
 public interface IRentalService extends IAbstractService<Rental, Long> {
 
 	List<Rental> findByGenericUser(GenericUser genericuser);
+	List<Rental> findByPowerBank(PowerBank powerBank);
 
 	/**
 	 * Function to handle a rental
