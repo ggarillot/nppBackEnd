@@ -100,4 +100,15 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 
 	}
 
+	@Override
+	public Rental handleEndOfRental(Rental rental, GenericStation station) throws Exception {
+
+		rental.setEndDate(LocalDate.now());
+		PowerBank powerBank = rental.getPowerBank();
+
+		powerBankService.attachToStation(powerBank, station);
+		
+		return repository.save(rental);
+	}
+
 }
