@@ -1,5 +1,7 @@
 package com.npp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class PowerBankService extends AbstractService<PowerBank, Long> implement
 		
 		powerBank.setGenericStation(station);
 		return this.update(powerBank, powerBank.getId());
+	}
+
+	@Override
+	public List<PowerBank> findByGenericStation(GenericStation genericstation) {
+		return ((IPowerBankRepository) repository).findByGenericStation(genericstation);
 	}
 
 }
