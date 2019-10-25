@@ -3,6 +3,7 @@ package com.npp.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +32,9 @@ public abstract class GenericUser implements IHasID<Long> {
 	private String name;
 
 	private String surname;
+	
+	@Column(unique = true)
+	private String username;
 
 	@Email
 	private String email;
