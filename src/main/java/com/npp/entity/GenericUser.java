@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -51,8 +52,7 @@ public abstract class GenericUser implements IHasID<Long> {
 
 	protected String visaCard;
 	
-	@Enumerated
-	@Column()
+	@Enumerated(EnumType.STRING)
 	protected UserRole role ;
 
 	@JsonIgnore
