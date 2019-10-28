@@ -7,5 +7,5 @@ import com.npp.entity.GenericUser;
 
 @Repository
 public interface IGenericUserRepository extends JpaRepository<GenericUser, Long> {
-
+	public GenericUser findByUsername(String username);
 }

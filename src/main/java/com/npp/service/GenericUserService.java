@@ -15,4 +15,9 @@ public class GenericUserService extends AbstractService<GenericUser, Long> imple
 		this.repository = repository;
 	}
 
+	@Override
+	public GenericUser findByUsername(String username) {
+		return ((IGenericUserRepository)repository).findByUsername(username);
+	}
+
 }

@@ -11,6 +11,7 @@ import com.npp.iservice.ISubscriptionService;
 @RestController
 @RequestMapping("/subscription")
 @CrossOrigin(origins = "*")
+
 public class SubscriptionController extends AbstractController<Subscription, Long>{
 	
 	@Autowired

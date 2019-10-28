@@ -19,6 +19,7 @@ import com.npp.iservice.IPowerBankService;
 @RestController
 @RequestMapping("/gstation")
 @CrossOrigin(origins = "*")
+
 public class GenericStationController extends AbstractController<GenericStation, Long> {
 
 	@Autowired
