@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class GenericStationController extends AbstractController<GenericStation,
 
 	@Autowired
 	private IPowerBankService powerBankService;
-	
+
 	@Autowired
 	public GenericStationController(IGenericStationService service) {
 		this.service = service;
@@ -33,10 +34,32 @@ public class GenericStationController extends AbstractController<GenericStation,
 	@GetMapping("/get/{id}/powerBank")
 	public ResponseEntity<List<PowerBank>> getPowerBankListOfThisStation(@PathVariable("id") Long id) {
 		GenericStation station = service.getById(id);
-		if ( station == null )
+		if (station == null)
 			return new ResponseEntity<List<PowerBank>>(HttpStatus.NOT_FOUND);
-		
+
 		List<PowerBank> powerBankList = powerBankService.findByGenericStation(station);
-		return new ResponseEntity<List<PowerBank>>(powerBankList,HttpStatus.OK);
+		return new ResponseEntity<List<PowerBank>>(powerBankList, HttpStatus.OK);
+	}
+
+	/**
+	 * super dirty but we have no time
+	 * @param id
+	 * @return
+	 */
+	@PutMapping("/{id}/addPowerBank")
+	public ResponseEntity<List<PowerBank>> addPowerBankToThisStation(@PathVariable("id") Long id) {
+		GenericStation station = service.getById(id);
+		if (station == null)
+			return new ResponseEntity<List<PowerBank>>(HttpStatus.NOT_FOUND);
+
+		try {
+			((IGenericStationService) service).addPowerBankToStation(station);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<PowerBank>>(HttpStatus.FORBIDDEN);
+		}
+
+		List<PowerBank> powerBankList = powerBankService.findByGenericStation(station);
+		return new ResponseEntity<List<PowerBank>>(powerBankList, HttpStatus.OK);
 	}
 }
