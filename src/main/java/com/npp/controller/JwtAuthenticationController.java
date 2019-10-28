@@ -2,6 +2,7 @@ package com.npp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -46,7 +47,13 @@ public class JwtAuthenticationController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
+		return ResponseEntity.ok(userDetailsService.saveUser(user));
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value = "/registerAdmin", method = RequestMethod.POST)
+	public ResponseEntity<?> saveAdmin(@RequestBody UserDto user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.saveAdmin(user));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
