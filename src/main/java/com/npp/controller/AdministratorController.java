@@ -10,7 +10,8 @@ import com.npp.iservice.IAdministratorService;
 
 @RestController
 @RequestMapping("/administrator")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
+
 public class AdministratorController extends AbstractController<Administrator, Long> {
 
 	@Autowired

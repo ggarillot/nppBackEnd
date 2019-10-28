@@ -15,7 +15,8 @@ import com.npp.iservice.IRentalService;
 
 @RestController
 @RequestMapping("/rental")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
+
 public class RentalController extends AbstractController<Rental, Long> {
 
 	@Autowired

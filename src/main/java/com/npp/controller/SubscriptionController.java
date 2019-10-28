@@ -10,7 +10,8 @@ import com.npp.iservice.ISubscriptionService;
 
 @RestController
 @RequestMapping("/subscription")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
+
 public class SubscriptionController extends AbstractController<Subscription, Long>{
 	
 	@Autowired

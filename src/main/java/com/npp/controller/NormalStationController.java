@@ -10,7 +10,8 @@ import com.npp.iservice.INormalStationService;
 
 @RestController
 @RequestMapping("/station")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
+
 public class NormalStationController extends AbstractController<NormalStation, Long>{
 	
 	@Autowired

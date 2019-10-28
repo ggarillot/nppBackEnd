@@ -10,13 +10,12 @@ import com.npp.iservice.IPowerBankService;
 
 @RestController
 @RequestMapping("/powerBank")
-@CrossOrigin(origins = "http://localhost:4200")
-public class PowerBankController extends AbstractController<PowerBank, Long>{
-	
+@CrossOrigin(origins = "*")
+public class PowerBankController extends AbstractController<PowerBank, Long> {
+
 	@Autowired
-	public PowerBankController(IPowerBankService service)
-	{
+	public PowerBankController(IPowerBankService service) {
 		this.service = service;
 	}
-	
+
 }

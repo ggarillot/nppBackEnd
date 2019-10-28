@@ -46,6 +46,11 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 	}
 
 	@Override
+	public List<Rental> findByPowerBank(PowerBank powerBank) {
+		return ((IRentalRepository) repository).findByPowerBank(powerBank);
+	}
+
+	@Override
 	@Transactional(noRollbackFor = Exception.class)
 	public Rental handleNewRent(GenericUser user, PowerBank powerBank) throws RentalNotAllowedException {
 
@@ -93,6 +98,17 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 
 		return rental;
 
+	}
+
+	@Override
+	public Rental handleEndOfRental(Rental rental, GenericStation station) throws Exception {
+
+		rental.setEndDate(LocalDate.now());
+		PowerBank powerBank = rental.getPowerBank();
+
+		powerBankService.attachToStation(powerBank, station);
+		
+		return repository.save(rental);
 	}
 
 }
