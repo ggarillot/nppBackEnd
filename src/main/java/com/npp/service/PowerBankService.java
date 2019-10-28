@@ -30,10 +30,22 @@ public class PowerBankService extends AbstractService<PowerBank, Long> implement
 		powerBank.setGenericStation(station);
 		return this.update(powerBank, powerBank.getId());
 	}
+	
+	@Override
+	public PowerBank detachOfStation(PowerBank powerBank) throws Exception {
+		
+		if (powerBank.getGenericStation() == null)
+			throw new Exception("PowerBank not in a station");
+		
+		powerBank.setGenericStation(null);
+		return this.update(powerBank, powerBank.getId());
+	}
 
 	@Override
 	public List<PowerBank> findByGenericStation(GenericStation genericstation) {
 		return ((IPowerBankRepository) repository).findByGenericStation(genericstation);
 	}
+
+
 
 }

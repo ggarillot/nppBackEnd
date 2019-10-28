@@ -51,12 +51,27 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 	}
 
 	@Override
-	@Transactional(noRollbackFor = Exception.class)
-	public Rental handleNewRent(GenericUser user, PowerBank powerBank) throws RentalNotAllowedException {
+	public Rental userCurrentRent(GenericUser user) {
 
+		Rental userRental = null;
+		List<Rental> userRentalList = this.findByGenericUser(user);
+		for (Rental rental : userRentalList) {
+			if (rental.getEndDate() == null) {
+				userRental = rental;
+				break;
+			}
+		}
+		return userRental;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public Rental handleNewRent(GenericUser user, PowerBank powerBank) throws RentalNotAllowedException {
+		System.out.println("handleNewRent");
 		List<Subscription> userSuscriptionList = subscriptionService.findByGenericUser(user);
 
-		boolean isSuscribed = false;
+		// osef subscribe
+		boolean isSuscribed = true;
 		LocalDate now = LocalDate.now();
 		for (Subscription suscription : userSuscriptionList) {
 			if (suscription.getEndDate().compareTo(now) >= 0) {
@@ -65,34 +80,25 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 			}
 		}
 
-		boolean isInCurrentRent = false;
-		List<Rental> userRentalList = this.findByGenericUser(user);
-		for (Rental rental : userRentalList) {
-			if (rental.getEndDate().compareTo(now) >= 0) {
-				isInCurrentRent = true;
-				break;
-			}
-		}
+		Rental userRental = userCurrentRent(user);
 
-		boolean isBatteryInStation = false;
-		GenericStation station = powerBank.getGenericStation();
-		if (station != null)
-			isBatteryInStation = true;
+		try {
+			powerBankService.detachOfStation(powerBank);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RentalNotAllowedException("Battery not in a station");
+		}
 
 		if (!isSuscribed)
 			throw new RentalNotAllowedException("User not suscribed");
-		if (isInCurrentRent)
+		if (userRental != null)
 			throw new RentalNotAllowedException("User already in rent");
-		if (!isBatteryInStation)
-			throw new RentalNotAllowedException("Battery not in a station");
 
 		Rental rental = new Rental();
 		rental.setGenericUser(user);
 		rental.setPowerBank(powerBank);
 		rental.setBeginDate(now);
 		rental.setLimitDate(now.plusDays(1));
-
-		powerBank.setGenericStation(null);
 
 		rental = this.add(rental);
 
@@ -107,7 +113,7 @@ public class RentalService extends AbstractService<Rental, Long> implements IRen
 		PowerBank powerBank = rental.getPowerBank();
 
 		powerBankService.attachToStation(powerBank, station);
-		
+
 		return repository.save(rental);
 	}
 

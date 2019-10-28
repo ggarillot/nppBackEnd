@@ -34,5 +34,4 @@ public class GenericUserController extends AbstractController<GenericUser, Long>
 		return User.builder().status("User successfully authenticated").build();
 	}
 	
-
 }
