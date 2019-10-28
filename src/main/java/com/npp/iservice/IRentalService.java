@@ -13,6 +13,8 @@ public interface IRentalService extends IAbstractService<Rental, Long> {
 	List<Rental> findByGenericUser(GenericUser genericuser);
 	List<Rental> findByPowerBank(PowerBank powerBank);
 
+	Rental userCurrentRent(GenericUser user);
+	
 	/**
 	 * Function to handle a rental
 	 * 

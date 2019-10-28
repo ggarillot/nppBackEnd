@@ -13,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.npp.enumerator.UserRole;
 import com.npp.ientity.IHasID;
 
@@ -28,6 +31,9 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = StandardUser.class, name = "StandardUser"),
+		@JsonSubTypes.Type(value = Administrator.class, name = "Administrator") })
 public abstract class GenericUser implements IHasID<Long> {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +45,7 @@ public abstract class GenericUser implements IHasID<Long> {
 	protected String name;
 
 	protected String surname;
-	
+
 	@Column(unique = true)
 	protected String username;
 
@@ -51,9 +57,9 @@ public abstract class GenericUser implements IHasID<Long> {
 	protected LocalDate inscriptionDate;
 
 	protected String visaCard;
-	
+
 	@Enumerated(EnumType.STRING)
-	protected UserRole role ;
+	protected UserRole role;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "genericUser")
