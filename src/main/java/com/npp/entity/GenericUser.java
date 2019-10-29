@@ -3,49 +3,69 @@ package com.npp.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.npp.enumerator.UserRole;
 import com.npp.ientity.IHasID;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = StandardUser.class, name = "StandardUser"),
+		@JsonSubTypes.Type(value = Administrator.class, name = "Administrator") })
 public abstract class GenericUser implements IHasID<Long> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	protected Long id;
 
-	private String name;
+	protected String name;
 
-	private String surname;
+	protected String surname;
+
+	@Column(unique = true)
+	protected String username;
 
 	@Email
-	private String email;
+	protected String email;
 
-	private String password;
+	protected String password;
 
-	private LocalDate inscriptionDate;
+	protected LocalDate inscriptionDate;
 
-	private String visaCard;
+	protected String visaCard;
+
+	@Enumerated(EnumType.STRING)
+	protected UserRole role;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "genericUser")
-	private List<Subscription> subscriptionList;
+	protected List<Subscription> subscriptionList;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "genericUser")
-	private List<Rental> rentalList;
+	protected List<Rental> rentalList;
 }

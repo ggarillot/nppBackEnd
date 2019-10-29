@@ -13,6 +13,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.npp.embedded.Localisation;
 import com.npp.enumerator.GenericStationStatus;
 import com.npp.ientity.IHasID;
@@ -22,6 +24,8 @@ import lombok.Data;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ @JsonSubTypes.Type(value = NormalStation.class, name = "NormalStation") })
 public abstract class GenericStation implements IHasID<Long> {
 
 	private static final long serialVersionUID = 1L;

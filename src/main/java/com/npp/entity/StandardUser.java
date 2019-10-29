@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class StandardUser extends GenericUser {
 
 	private static final long serialVersionUID = 1L;
+	
 
 }
